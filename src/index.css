@@ -1,14 +1,57 @@
+@import url('https://fonts.googleapis.com/css?family=Work+Sans');
+* {
+  color: #333;
+}
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: #f8f8f8 !important;
+}
+h6, p, ul {
+  font-family: 'Work Sans', sans-serif;
+}
+.nav {
+  background: white;
+  box-shadow: 0px 3px 20px #00000036;
+}
+.nav-link {
+  font-size: 1.2rem;
+  color: #ff5e00;
+}
+.nav-link:hover {
+  color: #ff9633;
+}
+/* ul {
+  list-style-type:none;
+  font-family: 'Work Sans', sans-serif;
+} */
+.popular-section {
+  margin-top: 4rem;
+}
+.popular-section h6 {
+  color: #0044ff;
+  margin: 2rem 0;
+}
+.popular-section__end {
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.card {
+  max-width: 12rem;
+  box-shadow: 0px 1px 20px #00000027;
 }
+.card h6 {
+  color: #333;
+  height: 2.5rem;
+  margin-top: 0.5rem;
+}
+.card p {
+  font-size: 0.8rem;
+  text-align: right;
+  color: #888888
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+} 
