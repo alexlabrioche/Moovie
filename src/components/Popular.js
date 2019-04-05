@@ -1,10 +1,7 @@
 import React from "react";
 import Card from './movie/Card';
-
-import Button from './core/Button'
-
-const API_KEY = "0f27f288355ac985ac3b6e61f7df20c3";
-const URL = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=";
+import Button from './core/Button';
+import Api from './utils/Api';
 
 class Popular extends React.Component {
   constructor(props) {
@@ -20,25 +17,24 @@ class Popular extends React.Component {
     this.renderEndGame = this.renderEndGame.bind(this);
   };
   componentDidMount() {
-    fetch(URL + API_KEY)
-    .then(res => res.json())
+    Api.getPopularMovies()
     .then(data => {
-      if (data.results !== undefined) {
         this.setState({
           movies: data.results
         });
-      };
-    // console.info("@componentDidMount data", data.results)
+    console.info("@componentDidMount data", data.results)
     });
   };
   onclickFavoriteMovie(id) {
-    const favorites = JSON.parse(localStorage.getItem("my-list"));
-    const movieId = id;
+    console.info(id)
+    const favorites = JSON.parse(localStorage.getItem("my-list"));   
     if (favorites !== null) {
-      favorites.push(movieId);
+      if (favorites.includes(id) === false) {
+        favorites.push(id);
+      }
       localStorage.setItem("my-list", JSON.stringify(favorites))
     } else {
-      localStorage.setItem("my-list", JSON.stringify([movieId]))
+      localStorage.setItem("my-list", JSON.stringify([id]))
     }
     let currentPage = this.state.currentPage + 1;
     this.setState({
@@ -52,14 +48,6 @@ class Popular extends React.Component {
     this.setState({
       currentPage,
     });
-  };
-
-  clearLocalStorage() {
-    console.info('@clearLocalStorage');
-    const myList = localStorage.getItem("my-list");
-    console.info("@clearLocalStorage myList", myList);
-    localStorage.clear();
-    console.info("@clearLocalStorage myList", myList);
   };
 
   renderEndGame() {
@@ -79,28 +67,24 @@ class Popular extends React.Component {
     const myList = localStorage.getItem("my-list");
     console.info("@Popular myList", myList);
     return(
-      <div className="row">
-        <div className="col-12">
-          <p>In this Section you can add into your list from a selection of recent movies. If you don't like just skip to the next 2 movies</p>
-          <h6 className="text-center">Updated weekly!</h6>
-        </div>
-          {currentMovies.map((movie, index) => {
+      <div>
+        <h4 className="text-center">Movies of the moment!</h4>
+        <p className="popular-description">
+          In this section you can choose between 2 movies of the moment. Just keep calm and make the good choice! (btw if you like neither of the movies you can skip)
+        </p>
+        <div className="row popular-section-cards">
+          {currentMovies.map((movie) => {
             return(
-              <div className="col-6 mb-5" key={index}>
-                <Card 
-                  title={movie.title} 
-                  poster={movie.poster_path}
-                  id={movie.id}
-                  voteCount={movie.vote_count}
-                  voteAverage={movie.vote_average}
-                  onClick={this.onclickFavoriteMovie} />
-              </div>
+              <Card
+                key={movie.id}
+                displayInfo
+                {...movie}
+                onClick={this.onclickFavoriteMovie} />
             );
           })}
-          <div className="col-12">
-            <div className="mb-5 text-center">
-              <Button className="btn btn-warning" onClick={this.onClickNextMovie}>Naah, Show me the next two movies</Button>
-            </div>
+        </div>        
+          <div className="my-5 text-center">
+            <Button className="btn btn-warning" onClick={this.onClickNextMovie}>Naah, Show me the next two movies</Button>
           </div>
       </div>
     );
@@ -108,15 +92,12 @@ class Popular extends React.Component {
 
 
   render() {
-    const { currentPage } = this.state;
+    const { currentPage, movies, moviesPerPage } = this.state;
+    const lastPage = Math.ceil(movies.length / moviesPerPage);
     return(
-      <div className="container-fluid popular-section">
+      <div className="container-fluid popular-main-section">
 
-        {currentPage > 10 ? this.renderEndGame() : this.renderInGame()}
-
-        <div className="mb-5 text-center">
-          <Button className="btn btn-danger" onClick={this.clearLocalStorage}>Clear localStorage</Button>
-        </div>
+        {currentPage <= lastPage ? this.renderInGame() : this.renderEndGame() }
 
       </div>
     );

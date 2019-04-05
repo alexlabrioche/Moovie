@@ -1,33 +1,43 @@
-@import url('https://fonts.googleapis.com/css?family=Work+Sans');
-* {
-  color: #333;
-}
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:200,300,400');
+
 body {
-  background-color: #f8f8f8 !important;
+  background-color: #f5f3f3 !important;
 }
 h6, p, ul {
   font-family: 'Work Sans', sans-serif;
 }
+.btn-warning {
+  background: #ffd000 !important;
+}
+.btn-warning:hover {
+  color: #555555 !important;
+}
 .nav {
   background: white;
-  box-shadow: 0px 3px 20px #00000036;
+  box-shadow: 0px 3px 20px #00000017;
+  background: #ffd000;
 }
 .nav-link {
   font-size: 1.2rem;
-  color: #ff5e00;
+  color: #333;
 }
 .nav-link:hover {
-  color: #ff9633;
+  color: #fd7200;
 }
-/* ul {
-  list-style-type:none;
-  font-family: 'Work Sans', sans-serif;
-} */
-.popular-section {
+.popular-main-section {
   margin-top: 4rem;
+  display: flex;
+  flex-direction: column;
 }
-.popular-section h6 {
-  color: #0044ff;
+.popular-description {
+  color: #5f5f5f;
+  font-weight: 300;
+}
+.popular-section-cards {
+  justify-content: space-around;
+}
+.popular-main-section h6 {
+  color: #fd7200;
   margin: 2rem 0;
 }
 .popular-section__end {
@@ -36,22 +46,50 @@ h6, p, ul {
   flex-direction: column;
   justify-content: center;
 }
-
-.card {
-  max-width: 12rem;
-  box-shadow: 0px 1px 20px #00000027;
+.movie-card {
+  margin-bottom: 2rem;
+  max-width: 18rem;
+  background: white;
+  transition: box-shadow .5s;
 }
-.card h6 {
+.movie-card:hover {
+  box-shadow: 5px 5px 20px #00000015;
+}
+.movie-card h6 {
   color: #333;
   height: 2.5rem;
   margin-top: 0.5rem;
 }
-.card p {
+.movie-card-top {
+  cursor: pointer;
+  transition: opacity .2s;
+}
+.movie-card-top:hover {
+  opacity: 0.8;
+}
+.movie-card-img {
+  width: 100%;
+
+}
+.card-body-vote {
   font-size: 0.8rem;
   text-align: right;
-  color: #888888
+  font-weight: 200;
+  color: #888888 !important;
+}
+.card-body-text {
+  height: 6rem;
+  font-weight: 300;
+  font-size: 0.9rem;
+  text-align: left;
+  color: #888888 !important;
 }
 .card-body {
   display: flex;
   flex-direction: column;
 } 
+.discover-main-section {
+  margin-top: 4rem;
+  display: flex;
+  /* flex-direction: column; */
+}
